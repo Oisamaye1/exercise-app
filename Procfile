@@ -1,1 +1,1 @@
-web: ginicorn app:main
+web: ginicorn main:app
