@@ -1,0 +1,66 @@
+{% from 'components.html' import card with context %}
+<link rel="stylesheet" href="/static/style.css"/>
+{% if not session["user"] %}
+<section class="login-page">
+    <div class='login-title'>Enter your name</div>
+    <form action='/' method='POST'>
+        <div class='login-form'>
+        <input  type="text" name="user_name" placeholder='Username'>
+        <button type="submit">Login / Sign up</button>
+        </div>
+    </form>
+</section>
+{% endif %}
+{% if session["user"] %}
+  <div class='wrapper'>
+    <div class='header'>
+      <div>
+        {{ card(emoji='🏋️‍♂️', data= total_excercise, title='Total Exercise')}}
+        {{ card(emoji='💁', data= session["user"], title='Username')}}
+        {{ card(emoji='🔑', data=user.logins, title='# of Logins')}}
+        {{ card(emoji='🚴‍♂️', data= user.exercise_generated, title='Exercise You did')}}
+      </div>
+        <div id='exercise'>
+          <img src="{{ exercise_img }}" width='300' height='300'
+            style="border-radius: 5%;">
+            <!-- <form action="/description" method="GET">
+                <button>Get Explanation</button>
+            </form> -->
+        </div>
+    </div>
+
+
+    <div class='buttonsContainer'>
+        <form action="/get_exercise" method='GET'>
+            <button>Get Exercise</button>
+        </form>
+    
+        <form action='/logout'>
+          <button>Logout</button>
+        </form>
+    </div>
+
+    <table class = "leaderboard">
+        <th>
+            <div class='titles'>
+                <tr>  
+                    <td>Place</td>
+                    <td>Name</td>
+                    <td>Exercise Generated 🌟</td>
+                    <td>Logins</td>
+                </tr>  
+            </div>
+        </th>
+
+    {% for index, user in users %}
+        <tr>
+            <td>{{index + 1}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.exercise_generated}}</td>
+            <td>{{user.logins}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+</div>
+{% endif %}
