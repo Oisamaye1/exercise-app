@@ -32,7 +32,6 @@ class User(db.Model):
     def __str__(self):
         return '<User %r>' % [self.username, self.logins, self.exercise_generated]
 
-
 data = [
   {
     "name": "Incline Hammer Curls",
@@ -126,17 +125,9 @@ data = [
   }
 ]
 
-
-excercise_data = {
-    "total_excercise": 0
-}
-
 last_exercise = {}
 if "last_exercise" not in last_exercise:
     last_exercise["last_exercise"] = ""
-
-# logins = 0
-# exercise_generated = 0
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -153,32 +144,45 @@ def home():
     exercise_img = last_exercise["last_exercise"], 
     users = enumerate(get_leaderboard(User.query.all())), user=user)
 
+
+@app.route('/exercise')
+def exercise_info(exercise = last_exercise["last_exercise"] ):
+  n_ex = []
+  for last_es in last_exercise["last_exercise"]:
+    n_ex.append(last_es)
+  return render_template("exercise.html", ex_info = n_ex)
+
+
 @app.route('/get_exercise')
 def get_excercise():
     exercise = random.choice(data)
-    excercise_data["total_excercise"] += 1
-    last_exercise["last_exercise"] = exercise["image"]
-    
+    last_exercise["last_exercise"] = exercise["image"], exercise["name"], exercise["type"], exercise["muscle"], exercise["difficulty"], exercise["instructions"], exercise["equipment"]
+
 
     if session['user']:
         user = get_user_from_database(session['user'])
         user.exercise_generated += 1
-    return render_template("index.html", exercise_img = exercise["image"], 
-    users = enumerate(get_leaderboard(User.query.all())), user=user,
-    total_excercise = total_exercise())
+
+    return render_template("index.html", 
+    exercise_img = exercise["image"],
+    exercise_info = last_exercise["last_exercise"],
+    users = enumerate(get_leaderboard(User.query.all())), 
+    user=user,
+    total_excercise = total_exercise(), exercise=exercise
+    )
 
 @app.route('/logout')
 def logout():
     session['user'] = None
-    return render_template("index.html", total_excercise = excercise_data["total_excercise"])
+    return render_template("index.html")
 
 def create_or_update(user_name):
     user = get_user_from_database(user_name)
 
     if user:
-            print("User exists")
+            # print("User exists")
             user.logins += 1
-            print(user)
+            # print(user)
 
     else:
         user = User(user_name, logins=1, exercise_generated=0)

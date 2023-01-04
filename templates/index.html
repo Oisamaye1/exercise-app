@@ -6,7 +6,7 @@
     <form action='/' method='POST'>
         <div class='login-form'>
         <input  type="text" name="user_name" placeholder='Username'>
-        <button type="submit">Login / Sign up</button>
+        <button type="submit">Login</button>
         </div>
     </form>
 </section>
@@ -20,13 +20,17 @@
         {{ card(emoji='🔑', data=user.logins, title='# of Logins')}}
         {{ card(emoji='🚴‍♂️', data= user.exercise_generated, title='Exercise You did')}}
       </div>
+
+      <div>
         <div id='exercise'>
-          <img src="{{ exercise_img }}" width='300' height='300'
+          <img src="{{ exercise_img }}" width='250' height='250'
             style="border-radius: 5%;">
-            <!-- <form action="/description" method="GET">
-                <button>Get Explanation</button>
-            </form> -->
+            
         </div>
+        <form action="/exercise" method="get">
+            <button class="e-btn">Get Explanation</button>
+        </form>
+      </div>
     </div>
 
 
