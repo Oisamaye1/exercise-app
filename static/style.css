@@ -12,7 +12,6 @@
     flex-direction: column;
     height: 100vh;
     width: 100vw;
-    overflow: hidden;
   }
   
   .cardsContainer {
@@ -220,11 +219,17 @@
     transition: all 3s ease;
   }
 
-  .exinfo{
-    margin: 20px 50px;
-    height: 100vh;
-    overflow: auto;
+  .exinfo-box{
+    padding: 0px 50px;
+    width: 100vw;
+ 
   }
+
+
+  .exinfo img{
+    height: 700px;
+  }
+
   .exinfo h1{
     font-size: 20px;
   }
@@ -239,6 +244,7 @@
 
   .exinfo h6{
     font-size: 14px;
+    margin-bottom: 200px;
   }
  
   
