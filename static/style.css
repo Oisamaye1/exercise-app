@@ -20,7 +20,7 @@
     flex-wrap: wrap;
   }
   
-  .card {
+  .card { 
     height: 9rem;
     width: 44%;
     text-align: center;
@@ -225,8 +225,20 @@
     height: 100vh;
     overflow: auto;
   }
-  
-  .exinfo h6{
+  .exinfo h1{
     font-size: 20px;
   }
+
+  .exinfo h2{
+    font-size: 16px;
+  }
+
+  .exinfo h3{
+    font-size: 14px;
+  }
+
+  .exinfo h6{
+    font-size: 14px;
+  }
+ 
   
